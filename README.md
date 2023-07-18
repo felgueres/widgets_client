@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Widgets 
 
-## Getting Started
+Give immediate and accurate answers to common queries using widgets.
 
-First, run the development server:
+### Features 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- Simple input to submit queries
+- Depending on the type of the query, shows the appropriate widget on submission with the answer
+- Widgets for Weather, calculator, and current time
+
+### Implementation
+
+![flow](./public/assets/flow.png)
+
+**Weather widget**: Shows weather for requested location or in user’s locale if none specified.
+
+Includes:
+- Current weather with: Hi / lo temperatures
+- Current humidity, temp, wind speeds
+
+**API**
+```python
+def get_weather(timezone :str, location=None :str)-> weather_results : dict :
+    '''Get weather in given location or locale if none specified
+    Examples:
+    get_weather('America/Los_Angeles')
+    get_weather('America/Los_Angeles', 'San Francisco')
+    '''
+    if not location: location = get_location_from_timezone()
+    # call weatherapi.com
+    return weather_results
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Calculator widget** will only show the evaluated value of the math expression
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Determine if the query is a math expression and evaluate it. You can use the `eval` function in python to evaluate the expression.
+  
+**Time widget** will simply show the time for the requested location or in user’s locale if none specified
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Quickstart
+```bash
+npm run dev
+```
 
-## Learn More
+Runs at [http://localhost:3000](http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+### Bonus features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Classifier to route queries**: For the minimal version you can assume all submissions will follow a certain format. For bonus points, it would be able to route a query in any format to the appropriate widget. Would need an LLM classifier here. You can use OpenAI api to create a classifier by prompting the model (ask for help if needed)
