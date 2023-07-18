@@ -5,12 +5,20 @@ Give immediate and accurate answers to common queries using widgets.
 ### Features 
 
 - Simple input to submit queries
-- Depending on the type of the query, shows the appropriate widget on submission with the answer
-- Widgets for Weather, calculator, and current time
+- Shows appropriate widget on submission with the answer
+- Supports widgets: weather, calculator, and current time
 
 ### Implementation
 
+- User submits query
+- Runs LLM classifier to determine if and which widget to use 
+- Runs LLM to extract arguments for function 
+- Evaluates 
+- Returns answer 
+
 ![flow](./public/assets/flow.png)
+
+### Widgets
 
 **Weather widget**: Shows current weather for requested location or in user’s locale if none specified.
 
@@ -21,7 +29,7 @@ Give immediate and accurate answers to common queries using widgets.
 
 - Determine if the query is a math expression and evaluate it. You can use the `eval` function in python to evaluate the expression.
   
-**Time widget** Shows the time for the requested location or in user’s locale if none specified.
+**Time widget**: Shows the time for the requested location or in user’s locale if none specified.
 
 ### Quickstart
 ```bash
