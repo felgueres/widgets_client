@@ -7,8 +7,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      margin: {
-        'mb-lg': '24px',
+      textColor: {
+        'super': '#007aff'
       }
     },
   },
