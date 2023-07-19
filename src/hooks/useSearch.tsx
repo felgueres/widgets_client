@@ -58,12 +58,18 @@ export default function useSearch({ queryStr }: { queryStr: string | null }) {
         async function fetchSearch() {
             if (!submitQ) { return }
             setLoading(true)
+
+            console.log('Submitting with query: ', queryStr)
+            console.log('Submitting to endpoint: ', SEARCH_ENDPOINT)
+
             try {
                 await fetch(`${SEARCH_ENDPOINT}`, { method: 'POST', })
                     .then((res) => {
                         if (res.ok) {
                             res.json()
                             .then((data) => { setData(data) })
+                        } else {
+                            console.log('Error: ', res.statusText)
                         }
                     })
             }
