@@ -8,15 +8,7 @@ Give immediate and accurate answers to common queries using widgets.
 - Shows appropriate widget on submission with the answer
 - Supports widgets: weather, calculator, and current time
 
-### Implementation
-
-- User submits query
-- Runs LLM classifier to determine if and which widget to use 
-- Runs LLM to extract arguments for function 
-- Evaluates 
-- Returns answer 
-
-![flow](./public/assets/flow.png)
+![flow](./public/assets/widgets.png)
 
 ### Widgets
 
@@ -37,8 +29,4 @@ npm install
 npm run dev
 ```
 
-Runs at [http://localhost:3000](http://localhost:3000).
-
-### Bonus features
-
-**Classifier to route queries**: For the minimal version you can assume all submissions will follow a certain format. For bonus points, it would be able to route a query in any format to the appropriate widget. Would need an LLM classifier here. You can use OpenAI api to create a classifier by prompting the model.
+This project also requires [widgets_api](https://github.com/felgueres/widgets_api) running on `port 5000`.
