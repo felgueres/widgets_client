@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useSearch, { TCalculator, TCurrentTime, TCurrentWeather } from "@/hooks/useSearch";
 import WeatherWidget from "@/components/WeatherWidget";
 import CalculatorWidget from "@/components/CalculatorWidget";
@@ -21,19 +21,22 @@ const objectToWidgetMap = {
     [Widgets.Unknown]: Widgets.Unknown
 }
 
-export default function SearchResults({ searchParams }: { searchParams: URLSearchParams }) {
+export default function SearchResults() {
     const [widgetType, setWidgetType] = useState<Widgets | null>(null)
     const [query, setQuery] = useState<string | null>(null)
     const { data, loading, setSubmitQ } = useSearch({ queryStr: query })
     const router = useRouter()
+    const searchParams = useSearchParams()
 
     useEffect(() => {
-        if ("q" in searchParams) {
-            const q = searchParams["q"] as string
+        const q = searchParams.get("q")
+        console.log('q from search params: ', q)
+        if (q) {
             setQuery(q)
             setSubmitQ(true)
         } else { router.push("/") }
-    }, [])
+    } 
+    , [searchParams])
 
     useEffect(() => {
         if (data) {
@@ -45,17 +48,19 @@ export default function SearchResults({ searchParams }: { searchParams: URLSearc
     const renderWidget = () => {
         if (!widgetType) { return null }
         switch (widgetType) {
-            case Widgets.Weather: 
+            case Widgets.Weather:
                 const wdata = data as TCurrentWeather
                 return <WeatherWidget data={wdata} />
-            case Widgets.Calculator: 
+            case Widgets.Calculator:
                 const cdata = data as TCalculator
-                return <CalculatorWidget data={cdata} /> 
-            case Widgets.Time: 
+                return <CalculatorWidget data={cdata} />
+            case Widgets.Time:
                 const tdata = data as TCurrentTime
                 return <TimeWidget data={tdata} />
             case Widgets.Unknown:
-                return <>Uh oh! Not a widget or edge case :-)</>
+                return <>Uh oh! For edge cases and bugs please use this
+                    <a href="https://docs.google.com/spreadsheets/d/1E1b6UpMhR72qMJBwEFVHA3a5eXsJAou1_VGXNSRRcKs/edit?usp=sharing" target="_blank" rel="noreferrer">form</a>
+                </>
         }
     }
 
@@ -71,10 +76,9 @@ export default function SearchResults({ searchParams }: { searchParams: URLSearc
 
                 {!loading &&
                     <button onClick={() => router.push("/")} className="flex justify-center items-center mt-8 border rounded-full px-3 py-1 hover:bg-gray-50">
-                       New Thread 
+                        New Thread
                     </button>
                 }
-
             </div>
         </div>
     )
