@@ -8,6 +8,10 @@ Give immediate and accurate answers to common queries using widgets.
 - Shows appropriate widget on submission with the answer
 - Supports widgets: weather, calculator, and current time
 
+## Figma
+
+[Figma file and ideas](https://www.figma.com/file/797oSxVRv3wovx5JuSjHIn/Trial_Perplexity?type=design&node-id=0%3A1&mode=design&t=FMCUbS2X0Re9WDi1-1)
+
 ![flow](./public/assets/widgets.png)
 
 ### Widgets
