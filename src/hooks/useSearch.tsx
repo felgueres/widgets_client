@@ -54,16 +54,11 @@ export default function useSearch({ queryStr }: { queryStr: string | null }) {
     const [data, setData] = useState<TCurrentWeather | TCalculator | TCurrentTime| null>(null)
 
     useEffect(() => {
-        // ${HOST}
-        const SEARCH_ENDPOINT = `/api/v1/search?q=${queryStr}`
-        console.log('running useEffect: ')
+        // 
+        const SEARCH_ENDPOINT = `${HOST}/v1/search?q=${queryStr}`
         async function fetchSearch() {
             if (!submitQ) { return }
             setLoading(true)
-
-            console.log('Submitting with query: ', queryStr)
-            console.log('Submitting to endpoint: ', SEARCH_ENDPOINT)
-
             try {
                 await fetch(`${SEARCH_ENDPOINT}`, { method: 'POST', })
                     .then((res) => {
