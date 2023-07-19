@@ -12,9 +12,10 @@ function getDateFromStr(dateStr: string) {
 }
 
 export default function WeatherWidget({ data }: { data: TCurrentWeather | null }) {
+    const [isMetric, setIsMetric] = useState(false)
+
     if (!data) { return null }
     const { current, location } = data.data
-    const [isMetric, setIsMetric] = useState(false)
     return <>
         <div className="text-black border-b pb-6">
             <div className="flex justify-between">
