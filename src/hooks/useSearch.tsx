@@ -1,33 +1,53 @@
 import { useState, useEffect } from 'react';
-const HOST = 'http://127.0.0.1:5000' 
+const HOST = 'http://127.0.0.1:5000'
 
-type TCurrentWeather = {
+export type TCurrentWeather = {
     object: string,
     data: {
-        location: string,
-        temperature: number,
-        humidity: number,
-        windSpeed: number,
-        windDirection: number,
+        current: {
+            temp_c: number,
+            temp_f: number,
+            wind_mph: number,
+            wind_kph: number,
+            wind_dir: string,
+            pressure_mb: number,
+            pressure_in: number,
+            precip_mm: number,
+            precip_in: number,
+            humidity: number,
+            cloud: number,
+            condition: {
+                text: string,
+                icon: string,
+                code: number
+            }
+        },
+        location: {
+            name: string,
+            country: string,
+            tz_id: string,
+            localtime: string
+        }
     }
 }
 
-type TCalculator = {
+export type TCalculator = {
     object: string,
-    data: { 
-        result: number 
+    data: {
+        result: number,
+        expr: string
     }
 }
 
-type TCurrentTimeData = {
+export type TCurrentTimeData = {
     object: string,
     data: {
         time: string,
-        timezone: string,
+        tz: string,
     }
 }
 
-export default function useSearch({ queryStr }: { queryStr: string | null}) {
+export default function useSearch({ queryStr }: { queryStr: string | null }) {
 
     const [loading, setLoading] = useState<boolean>(false)
     const [submitQ, setSubmitQ] = useState<boolean>(false)
@@ -47,11 +67,11 @@ export default function useSearch({ queryStr }: { queryStr: string | null}) {
                         }
                     })
             }
-            catch (error) { 
-                // TODO: handle error gracefully 
+            catch (error) {
+                // TODO: add toast to show error  
             }
-            finally { 
-                setLoading(false) 
+            finally {
+                setLoading(false)
                 setSubmitQ(false)
             }
         }
