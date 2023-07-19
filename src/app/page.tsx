@@ -4,6 +4,12 @@ import { cloneElement, useState } from "react"
 import { Icons } from "../../constants";
 import { useRouter } from "next/navigation";
 
+const examples = [
+  'Weather in London?',
+  'Calculate 4 * 2 - 3',
+  'Current time',
+]
+
 export default function Home() {
   const [query, setQuery] = useState<string>("")
   const router = useRouter()
@@ -24,6 +30,16 @@ export default function Home() {
             </button>
           </div>
         </div>
+      </div>
+
+      <div className="flex flex-col">
+        {
+          examples.map((example, i) => (
+            <button key={i} onClick={() => router.push(`/search?q=${encodeURIComponent(example)}`)} className="hover:underline">
+              {example}
+            </button>
+          ))
+        }
       </div>
     </div>
   )

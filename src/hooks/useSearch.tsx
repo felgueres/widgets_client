@@ -39,7 +39,7 @@ export type TCalculator = {
     }
 }
 
-export type TCurrentTimeData = {
+export type TCurrentTime = {
     object: string,
     data: {
         time: string,
@@ -51,7 +51,7 @@ export default function useSearch({ queryStr }: { queryStr: string | null }) {
 
     const [loading, setLoading] = useState<boolean>(false)
     const [submitQ, setSubmitQ] = useState<boolean>(false)
-    const [data, setData] = useState<TCurrentWeather | TCalculator | TCurrentTimeData | null>(null)
+    const [data, setData] = useState<TCurrentWeather | TCalculator | TCurrentTime| null>(null)
 
     useEffect(() => {
         const SEARCH_ENDPOINT = `${HOST}/v1/search?q=${queryStr}`
@@ -63,12 +63,12 @@ export default function useSearch({ queryStr }: { queryStr: string | null }) {
                     .then((res) => {
                         if (res.ok) {
                             res.json()
-                                .then((data) => { setData(data) })
+                            .then((data) => { setData(data) })
                         }
                     })
             }
             catch (error) {
-                // TODO: add toast to show error  
+                // TODO: add handling 
             }
             finally {
                 setLoading(false)

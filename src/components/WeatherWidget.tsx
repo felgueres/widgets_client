@@ -13,6 +13,8 @@ function getDateFromStr(dateStr: string) {
 export default function WeatherWidget({ data }: { data: TCurrentWeather | null }) {
     if (!data) { return null }
 
+    console.log(data)
+
     const { current, location } = data.data
 
     return <>

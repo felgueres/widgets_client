@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
-import useSearch from "@/hooks/useSearch";
+import useSearch, { TCalculator, TCurrentTime, TCurrentWeather } from "@/hooks/useSearch";
 import WeatherWidget from "@/components/WeatherWidget";
 import CalculatorWidget from "@/components/CalculatorWidget";
 import TimeWidget from "@/components/TimeWidget";
@@ -23,7 +23,6 @@ export default function SearchResults({ searchParams }: { searchParams: URLSearc
     const [widgetType, setWidgetType] = useState<Widgets | null>(null)
     const [query, setQuery] = useState<string | null>(null)
     const { data, loading, setSubmitQ } = useSearch({ queryStr: query })
-
     const router = useRouter()
 
     useEffect(() => {
@@ -44,9 +43,15 @@ export default function SearchResults({ searchParams }: { searchParams: URLSearc
     const renderWidget = () => {
         if (!widgetType) { return null }
         switch (widgetType) {
-            case Widgets.Weather: return <WeatherWidget data={data} />
-            case Widgets.Calculator: return <CalculatorWidget data={data} />
-            case Widgets.Time: return <TimeWidget data={data} />
+            case Widgets.Weather: 
+                const wdata = data as TCurrentWeather
+                return <WeatherWidget data={wdata} />
+            case Widgets.Calculator: 
+                const cdata = data as TCalculator
+                return <CalculatorWidget data={cdata} /> 
+            case Widgets.Time: 
+                const tdata = data as TCurrentTime
+                return <TimeWidget data={tdata} />
         }
     }
 
@@ -55,9 +60,17 @@ export default function SearchResults({ searchParams }: { searchParams: URLSearc
             <div className="w-full mx-auto max-w-screen-md md:px-lg px-md py-lg">
                 <div className=" text-2xl font-medium mb-4"> {query} </div>
                 {loading && <span>Loading...</span>}
+
                 <div className="font-medium text-base">
                     {renderWidget()}
                 </div>
+
+                {!loading &&
+                    <button onClick={() => router.push("/")} className="flex justify-center items-center mt-8 border rounded-full px-3 py-1 hover:bg-gray-50">
+                       New Thread 
+                    </button>
+                }
+
             </div>
         </div>
     )
