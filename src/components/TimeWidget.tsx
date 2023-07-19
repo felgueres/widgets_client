@@ -1,6 +1,6 @@
-import { TCurrentTimeData } from "@/hooks/useSearch"
+import { TCurrentTime } from "@/hooks/useSearch"
 
-export default function TimeWidget({ data }: { data: TCurrentTimeData | null }) {
+export default function TimeWidget({ data }: { data: TCurrentTime | null }) {
     if (!data) { return null }
     const { time, tz } = data.data
     return <>
