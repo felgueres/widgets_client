@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react"
+import { cloneElement, useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation";
 import useSearch, { TCalculator, TCurrentTime, TCurrentWeather } from "@/hooks/useSearch";
 import WeatherWidget from "@/components/WeatherWidget";
 import CalculatorWidget from "@/components/CalculatorWidget";
 import TimeWidget from "@/components/TimeWidget";
+import { Icons } from "../../../constants";
 
 enum Widgets {
     Weather = 'WeatherWidget',
@@ -35,8 +36,8 @@ export default function SearchResults() {
             setQuery(q)
             setSubmitQ(true)
         } else { router.push("/") }
-    } 
-    , [searchParams])
+    }
+        , [searchParams])
 
     useEffect(() => {
         if (data) {
@@ -58,8 +59,11 @@ export default function SearchResults() {
                 const tdata = data as TCurrentTime
                 return <TimeWidget data={tdata} />
             case Widgets.Unknown:
-                return <>Uh oh! For edge cases and bugs please use this
-                    <a href="https://docs.google.com/spreadsheets/d/1E1b6UpMhR72qMJBwEFVHA3a5eXsJAou1_VGXNSRRcKs/edit?usp=sharing" target="_blank" rel="noreferrer">form</a>
+                return <>Uh oh! Looks like an edge case or a bug.
+                    <div className="items-center flex text-blue-500">
+                        {cloneElement(Icons.bug_report, { className: "w-6 h-6 fill-current" })}
+                        <a className="underline text-blue-500" href="https://docs.google.com/spreadsheets/d/1E1b6UpMhR72qMJBwEFVHA3a5eXsJAou1_VGXNSRRcKs/edit?usp=sharing" target="_blank" rel="noreferrer">Report</a>
+                    </div>
                 </>
         }
     }
