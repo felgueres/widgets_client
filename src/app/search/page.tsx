@@ -13,7 +13,7 @@ enum Widgets {
     Time = 'TimeWidget',
 }
 
-export const objectToWidgetMap = {
+const objectToWidgetMap = {
     [Widgets.Weather]: Widgets.Weather,
     [Widgets.Calculator]: Widgets.Calculator,
     [Widgets.Time]: Widgets.Time,
