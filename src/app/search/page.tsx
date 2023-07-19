@@ -11,12 +11,14 @@ enum Widgets {
     Weather = 'WeatherWidget',
     Calculator = 'CalculatorWidget',
     Time = 'TimeWidget',
+    Unknown = 'UnknownWidget'
 }
 
 const objectToWidgetMap = {
     [Widgets.Weather]: Widgets.Weather,
     [Widgets.Calculator]: Widgets.Calculator,
     [Widgets.Time]: Widgets.Time,
+    [Widgets.Unknown]: Widgets.Unknown
 }
 
 export default function SearchResults({ searchParams }: { searchParams: URLSearchParams }) {
@@ -52,6 +54,8 @@ export default function SearchResults({ searchParams }: { searchParams: URLSearc
             case Widgets.Time: 
                 const tdata = data as TCurrentTime
                 return <TimeWidget data={tdata} />
+            case Widgets.Unknown:
+                return <>Uh oh! Not a widget or edge case :-)</>
         }
     }
 

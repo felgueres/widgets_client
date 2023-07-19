@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-const HOST = 'http://50.116.13.65:5000'
+const HOST = 'http://50.116.13.65'
 
 export type TCurrentWeather = {
     object: string,
